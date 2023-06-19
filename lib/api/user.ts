@@ -1,19 +1,32 @@
-import { User } from "../models/user";
+import { User, UserAPIResponse } from "../models";
 import axiosRequest from "./axios-request";
-export interface LoginRequest {
-  email: string;
+
+export type LoginBodyRequest = Pick<User, "email"> & { password: string };
+
+export type RegisterBodyRequest = Pick<User, "email" | "username"> & {
   password: string;
-}
+};
+
+export type UpdateCurrentUserBodyRequest = Pick<
+  User,
+  "email" | "username" | "bio" | "image"
+> & { password: string };
 
 export const userAPI = {
-  login: async (req: LoginRequest) => {
-    try {
-      const response = await axiosRequest.post<User>("users/login", {
-        ...req,
-      });
-      return response.data;
-    } catch (error) {
-      return error;
-    }
+  login: async (user: LoginBodyRequest) => {
+    const response = await axiosRequest.post<UserAPIResponse>("users/login", {
+      user,
+    });
+    return response.data;
+  },
+  register: async (user: RegisterBodyRequest) => {
+    const response = await axiosRequest.post<UserAPIResponse>("users", {
+      user,
+    });
+    return response.data;
+  },
+  getCurrentUser: async () => {
+    const response = await axiosRequest.get<UserAPIResponse>("users");
+    return response.data;
   },
 };
