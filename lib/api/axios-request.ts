@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
-import { useLocalStorage } from "../utils";
-import { StorageKey } from "../constants";
-import { User } from "../models/user";
+import { useLocalStorage } from "@/lib/utils";
+import { StorageKey } from "@/lib/constants";
+import { User } from "@/lib/models";
 
 const axiosInstance = axios.create();
 
