@@ -15,11 +15,13 @@ export default function LoginForm() {
     (s) => s.auth
   );
   const dispatch: AppDispatch = useDispatch();
+
   useEffect(() => {
-    if (isAuthenticated && router) {
+    if (isAuthenticated) {
       router.push("/");
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated]);
+  
   const onSubmit: SubmitHandler<LoginBodyRequest> = (data) => {
     dispatch(loginUser(data));
   };

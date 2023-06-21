@@ -2,6 +2,7 @@ interface NavBarMenu {
   url: string;
   title: string;
   icon?: string;
+  image?: string;
 }
 
 export const NON_AUTH_MENU: NavBarMenu[] = [
