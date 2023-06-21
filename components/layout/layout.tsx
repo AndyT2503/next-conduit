@@ -6,7 +6,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
   return (
     <>
       <Header />
-      <div className={style.container}>{children}</div>
+      {children}
       <Footer />
     </>
   );

@@ -1,19 +1,18 @@
-import axios, { InternalAxiosRequestConfig } from "axios";
-import { useLocalStorage } from "@/lib/utils";
 import { StorageKey } from "@/lib/constants";
 import { User } from "@/lib/models";
+import { storageService } from "@/lib/utils";
+import axios, { InternalAxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create();
 
 const apiPrefixInterceptor = (req: InternalAxiosRequestConfig) => {
-  if (!req.baseURL?.includes("http:") && !req.baseURL?.includes("https:")) {
-    req.baseURL = `${process.env.apiUrl}/${req.baseURL}`;
+  if (!req.baseURL?.includes("http:") && !req.url?.includes("https:")) {
+    req.baseURL = `${process.env.apiUrl}`;
   }
 };
 
 const authInterceptor = (req: InternalAxiosRequestConfig) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [user] = useLocalStorage<User>(StorageKey.user);
+  const user = storageService("localStorage").getItem<User>(StorageKey.user);
   const token = user?.token;
   if (
     req.url?.includes("/api/") &&
@@ -24,12 +23,10 @@ const authInterceptor = (req: InternalAxiosRequestConfig) => {
   }
 };
 
-axiosInstance.interceptors.request.use(
-  (req) => {
-    apiPrefixInterceptor(req);
-    authInterceptor(req);
-    return req;
-  },
-);
+axiosInstance.interceptors.request.use((req) => {
+  apiPrefixInterceptor(req);
+  authInterceptor(req);
+  return req;
+});
 
 export default axiosInstance;

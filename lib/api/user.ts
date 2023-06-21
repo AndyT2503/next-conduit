@@ -7,6 +7,7 @@ export type RegisterBodyRequest = Pick<User, "email" | "username"> & {
   password: string;
 };
 
+
 export type UpdateCurrentUserBodyRequest = Pick<
   User,
   "email" | "username" | "bio" | "image"
@@ -29,4 +30,10 @@ export const userAPI = {
     const response = await axiosRequest.get<UserAPIResponse>("users");
     return response.data;
   },
+  updateCurrentUser: async (user: UpdateCurrentUserBodyRequest) => {
+    const response = await axiosRequest.put<UserAPIResponse>("users", {
+      user,
+    });
+    return response.data;
+  }
 };
