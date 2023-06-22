@@ -1,7 +1,7 @@
 import { StorageKey } from "@/lib/constants";
 import { ErrorResponse, User } from "@/lib/models";
 import { storageService } from "@/lib/utils";
-import { Action, AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "./auth-action";
 
 export interface AuthState {
