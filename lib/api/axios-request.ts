@@ -1,5 +1,5 @@
 import { StorageKey } from "@/lib/constants";
-import { User } from "@/lib/models";
+import { ErrorResponse, User } from "@/lib/models";
 import { storageService } from "@/lib/utils";
 import axios, { InternalAxiosRequestConfig } from "axios";
 
@@ -27,6 +27,18 @@ axiosInstance.interceptors.request.use((req) => {
   apiPrefixInterceptor(req);
   authInterceptor(req);
   return req;
+});
+
+axiosInstance.interceptors.response.use(undefined, (error) => {
+  if (axios.isAxiosError(error) && error.response?.data) {
+    throw error.response?.data as ErrorResponse;
+  } else {
+    throw {
+      errors: {
+        request: ["has some internal server error"],
+      },
+    } as ErrorResponse;
+  }
 });
 
 export default axiosInstance;

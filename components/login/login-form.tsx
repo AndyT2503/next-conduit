@@ -8,10 +8,12 @@ import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./login-form.module.scss";
+import FormErrors from "@/components/common/form-errors/form-errors";
+
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<LoginBodyRequest>();
   const router = useRouter();
-  const { isAuthenticated, status } = useSelector<RootState, AuthState>(
+  const { isAuthenticated, status, errorResponse } = useSelector<RootState, AuthState>(
     (s) => s.auth
   );
   const dispatch: AppDispatch = useDispatch();
@@ -21,7 +23,7 @@ export default function LoginForm() {
       router.push("/");
     }
   }, [isAuthenticated]);
-  
+
   const onSubmit: SubmitHandler<LoginBodyRequest> = (data) => {
     dispatch(loginUser(data));
   };
@@ -33,6 +35,7 @@ export default function LoginForm() {
         Need an account?
       </Link>
       <form className={style["login-form"]} onSubmit={handleSubmit(onSubmit)}>
+        <FormErrors errorResponse={errorResponse}></FormErrors>
         <input
           type="email"
           {...register("email")}

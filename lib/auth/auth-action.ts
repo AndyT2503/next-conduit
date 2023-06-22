@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { LoginBodyRequest, RegisterBodyRequest, userAPI } from "@/lib/api";
+import { ErrorResponse } from "../models";
 
 export const registerUser = createAsyncThunk(
   "auth/register",

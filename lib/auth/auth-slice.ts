@@ -1,13 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { User } from "@/lib/models";
-import { loginUser, registerUser } from "./auth-action";
 import { StorageKey } from "@/lib/constants";
+import { ErrorResponse, User } from "@/lib/models";
 import { storageService } from "@/lib/utils";
+import { Action, AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { loginUser, registerUser } from "./auth-action";
 
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   status: "pending" | "done";
+  errorResponse: ErrorResponse | null;
 }
 
 const initialState = (): AuthState => {
@@ -16,6 +17,7 @@ const initialState = (): AuthState => {
     isAuthenticated: !!user,
     user,
     status: "done",
+    errorResponse: null,
   };
 };
 
@@ -50,16 +52,25 @@ export const authSlice = createSlice({
       (action) => action.type.endsWith("/pending"),
       (state) => {
         state.status = "pending";
+        state.errorResponse = null;
       }
     );
     builder.addMatcher(
-      (action) =>
+      (action: Action<string>) =>
         action.type.endsWith("/fulfilled") || action.type.endsWith("/rejected"),
       (state) => {
         state.status = "done";
       }
     );
+    builder.addMatcher(
+      (action: Action<string>): action is PayloadAction<ErrorResponse> =>
+        action.type.endsWith("/rejected"),
+      (state, action) => {
+        state.errorResponse = action.payload;
+      }
+    );
   },
 });
+
 
 export default authSlice.reducer;
