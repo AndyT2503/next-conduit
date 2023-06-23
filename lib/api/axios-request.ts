@@ -15,7 +15,7 @@ const authInterceptor = (req: InternalAxiosRequestConfig) => {
   const user = storageService("localStorage").getItem<User>(StorageKey.user);
   const token = user?.token;
   if (
-    req.url?.includes("/api/") &&
+    req.baseURL &&
     !req.headers.has("Authorization") &&
     token
   ) {
@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use((req) => {
 });
 
 axiosInstance.interceptors.response.use(undefined, (error) => {
-  if (axios.isAxiosError(error) && error.response?.data) {
+  if (axios.isAxiosError(error) && error.response?.data?.errors) {
     throw error.response?.data as ErrorResponse;
   } else {
     throw {

@@ -23,6 +23,10 @@ export default function LoginForm() {
     }
   }, [isAuthenticated]);
 
+  useEffect(() => {
+    dispatch(authSlice.actions.resetErrorResponse());
+  }, [])
+
   const onSubmit: SubmitHandler<LoginBodyRequest> = (data) => {
     dispatch(loginUser(data));
   };
@@ -30,7 +34,7 @@ export default function LoginForm() {
   return (
     <div className="form-container">
       <h1>Sign in</h1>
-      <Link onClick={() => dispatch(authSlice.actions.resetErrorResponse())} href="/register">
+      <Link href="/register">
         Need an account?
       </Link>
       <form onSubmit={handleSubmit(onSubmit)}>

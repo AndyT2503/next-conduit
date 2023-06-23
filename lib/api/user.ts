@@ -31,7 +31,7 @@ export const userAPI = {
     return response.data;
   },
   updateCurrentUser: async (user: UpdateCurrentUserBodyRequest) => {
-    const response = await axiosRequest.put<UserAPIResponse>("users", {
+    const response = await axiosRequest.put<UserAPIResponse>("user", {
       user,
     });
     return response.data;

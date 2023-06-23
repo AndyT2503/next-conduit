@@ -2,7 +2,7 @@ import { StorageKey } from "@/lib/constants";
 import { ErrorResponse, User } from "@/lib/models";
 import { storageService } from "@/lib/utils";
 import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from "./auth-action";
+import { loginUser, registerUser, updateCurrentUser } from "./auth-action";
 
 export interface AuthState {
   user: User | null;
@@ -35,6 +35,13 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(updateCurrentUser.fulfilled, (state, action) => {
+      storageService("localStorage").setItem(
+        StorageKey.user,
+        action.payload.user
+      );
+      state.user = action.payload.user;
+    });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       storageService("localStorage").setItem(
         StorageKey.user,
@@ -69,6 +76,7 @@ export const authSlice = createSlice({
       (action: Action<string>): action is PayloadAction<ErrorResponse> =>
         action.type.endsWith("/rejected"),
       (state, action) => {
+        console.log(action)
         state.errorResponse = action.payload;
       }
     );
