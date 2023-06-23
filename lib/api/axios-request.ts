@@ -6,7 +6,7 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 const axiosInstance = axios.create();
 
 const apiPrefixInterceptor = (req: InternalAxiosRequestConfig) => {
-  if (!req.baseURL?.includes("http:") && !req.url?.includes("https:")) {
+  if (!req.url?.includes("http:") && !req.url?.includes("https:")) {
     req.baseURL = `${process.env.apiUrl}`;
   }
 };
