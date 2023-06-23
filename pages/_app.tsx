@@ -1,6 +1,6 @@
 import Layout from "@/components/layout/layout";
 import { AppProps } from "next/app";
-import "../styles.css";
+import "../styles.scss";
 import { Provider } from "react-redux";
 import appStore from "@/lib/store/app.store";
 

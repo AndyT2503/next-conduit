@@ -1,7 +1,11 @@
-.register {
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-container {
   text-align: center;
 
-  .login {
+  a {
     color: var(--green-color);
     text-decoration: none;
 
@@ -11,14 +15,14 @@
     }
   }
 
-  .register-form {
+  form {
     display: flex;
     flex-direction: column;
     gap: 16px;
     max-width: 620px;
     margin: 16px auto;
 
-    .sign-up-btn {
+    .submit-btn {
       margin-left: auto;
       color: var(--white-color);
       background-color: var(--green-color);

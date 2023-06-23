@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import FormErrors from "../common/form-errors/form-errors";
-import style from "./register-form.module.scss";
 
 export default function RegisterForm() {
     const { register, handleSubmit } = useForm<RegisterBodyRequest>();
@@ -29,12 +28,12 @@ export default function RegisterForm() {
     };
 
     return (
-        <div className={style.register}>
+        <div className="form-container">
             <h1>Sign up</h1>
-            <Link onClick={() => dispatch(authSlice.actions.resetErrorResponse())} href="/login" className={style.login}>
+            <Link onClick={() => dispatch(authSlice.actions.resetErrorResponse())} href="/login">
                 Have an account?
             </Link>
-            <form className={style["register-form"]} onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <FormErrors errorResponse={errorResponse}></FormErrors>
                 <input
                     type="text"
@@ -60,7 +59,7 @@ export default function RegisterForm() {
                 <button
                     disabled={status === "pending"}
                     type="submit"
-                    className={`btn ${style["sign-up-btn"]} btn-lg`}
+                    className={`btn submit-btn btn-lg`}
                 >
                     Sign up
                 </button>

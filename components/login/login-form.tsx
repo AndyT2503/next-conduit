@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import style from "./login-form.module.scss";
 import FormErrors from "@/components/common/form-errors/form-errors";
 
 export default function LoginForm() {
@@ -29,12 +28,12 @@ export default function LoginForm() {
   };
 
   return (
-    <div className={style.login}>
+    <div className="form-container">
       <h1>Sign in</h1>
-      <Link onClick={() => dispatch(authSlice.actions.resetErrorResponse())} href="/register" className={style.register}>
+      <Link onClick={() => dispatch(authSlice.actions.resetErrorResponse())} href="/register">
         Need an account?
       </Link>
-      <form className={style["login-form"]} onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormErrors errorResponse={errorResponse}></FormErrors>
         <input
           type="email"
@@ -53,7 +52,7 @@ export default function LoginForm() {
         <button
           disabled={status === "pending"}
           type="submit"
-          className={`btn ${style["sign-in-btn"]} btn-lg`}
+          className="btn submit-btn btn-lg"
         >
           Sign in
         </button>

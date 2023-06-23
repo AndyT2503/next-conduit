@@ -7,7 +7,7 @@ interface NavBarMenu {
 
 export const NON_AUTH_MENU: NavBarMenu[] = [
   {
-    url: '',
+    url: '/',
     title: 'Home',
   },
   {
