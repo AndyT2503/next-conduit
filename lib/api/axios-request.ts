@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(undefined, (error) => {
   } else {
     throw {
       errors: {
-        request: ["has some internal server error"],
+        request: ["has some internal server errors"],
       },
     } as ErrorResponse;
   }
