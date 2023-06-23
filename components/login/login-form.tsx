@@ -1,6 +1,6 @@
 import { LoginBodyRequest } from "@/lib/api";
 import { loginUser } from "@/lib/auth/auth-action";
-import { AuthState } from "@/lib/auth/auth-slice";
+import { authSlice, AuthState } from "@/lib/auth/auth-slice";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -31,7 +31,7 @@ export default function LoginForm() {
   return (
     <div className={style.login}>
       <h1>Sign in</h1>
-      <Link href="/register" className={style.register}>
+      <Link onClick={() => dispatch(authSlice.actions.resetErrorResponse())} href="/register" className={style.register}>
         Need an account?
       </Link>
       <form className={style["login-form"]} onSubmit={handleSubmit(onSubmit)}>

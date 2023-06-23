@@ -30,6 +30,9 @@ export const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
+    resetErrorResponse: (state) => {
+      state.errorResponse = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -71,6 +74,5 @@ export const authSlice = createSlice({
     );
   },
 });
-
 
 export default authSlice.reducer;
