@@ -12,7 +12,7 @@ const apiPrefixInterceptor = (req: InternalAxiosRequestConfig) => {
 };
 
 const authInterceptor = (req: InternalAxiosRequestConfig) => {
-  const user = storageService("localStorage").getItem<User>(StorageKey.user);
+  const user = storageService("localStorage").getItem<User>(StorageKey.User);
   const token = user?.token;
   if (
     req.baseURL &&

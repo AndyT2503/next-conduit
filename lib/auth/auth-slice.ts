@@ -12,7 +12,7 @@ export interface AuthState {
 }
 
 const initialState = (): AuthState => {
-  const user = storageService("localStorage").getItem<User>(StorageKey.user);
+  const user = storageService("localStorage").getItem<User>(StorageKey.User);
   return {
     isAuthenticated: !!user,
     user,
@@ -26,7 +26,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      storageService("localStorage").removeItem(StorageKey.user);
+      storageService("localStorage").removeItem(StorageKey.User);
       state.user = null;
       state.isAuthenticated = false;
     },
@@ -37,14 +37,14 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(updateCurrentUser.fulfilled, (state, action) => {
       storageService("localStorage").setItem(
-        StorageKey.user,
+        StorageKey.User,
         action.payload.user
       );
       state.user = action.payload.user;
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       storageService("localStorage").setItem(
-        StorageKey.user,
+        StorageKey.User,
         action.payload.user
       );
       state.user = action.payload.user;
@@ -52,7 +52,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       storageService("localStorage").setItem(
-        StorageKey.user,
+        StorageKey.User,
         action.payload.user
       );
       state.user = action.payload.user;
@@ -76,7 +76,6 @@ export const authSlice = createSlice({
       (action: Action<string>): action is PayloadAction<ErrorResponse> =>
         action.type.endsWith("/rejected"),
       (state, action) => {
-        console.log(action)
         state.errorResponse = action.payload;
       }
     );

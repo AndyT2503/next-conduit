@@ -1,3 +1,3 @@
 export const enum StorageKey {
-  user = "User",
+  User = "User",
 }

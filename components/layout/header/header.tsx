@@ -14,7 +14,7 @@ export default function Header() {
   const { user } = useSelector<RootState, AuthState>((s) => s.auth);
 
   useEffect(() => {
-    if (!!user) {
+    if (user) {
       setMenu([
         ...AUTH_MENU,
         {

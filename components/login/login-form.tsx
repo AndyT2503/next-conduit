@@ -12,9 +12,10 @@ import FormErrors from "@/components/common/form-errors/form-errors";
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<LoginBodyRequest>();
   const router = useRouter();
-  const { isAuthenticated, status, errorResponse } = useSelector<RootState, AuthState>(
-    (s) => s.auth
-  );
+  const { isAuthenticated, status, errorResponse } = useSelector<
+    RootState,
+    AuthState
+  >((s) => s.auth);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -24,8 +25,10 @@ export default function LoginForm() {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    dispatch(authSlice.actions.resetErrorResponse());
-  }, [])
+    return () => {
+      dispatch(authSlice.actions.resetErrorResponse());
+    };
+  }, []);
 
   const onSubmit: SubmitHandler<LoginBodyRequest> = (data) => {
     dispatch(loginUser(data));
@@ -34,9 +37,7 @@ export default function LoginForm() {
   return (
     <div className="form-container">
       <h1>Sign in</h1>
-      <Link href="/register">
-        Need an account?
-      </Link>
+      <Link href="/register">Need an account?</Link>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormErrors errorResponse={errorResponse}></FormErrors>
         <input
