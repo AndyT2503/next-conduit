@@ -7,7 +7,7 @@ export const storageService = (storeType: "localStorage" | "sessionStorage") => 
     if (!store) {
       return null;
     }
-    return store as Storage;
+    return store;
   };
   const storage = getStorage();
   return {
