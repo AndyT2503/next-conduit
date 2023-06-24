@@ -6,7 +6,7 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 const axiosInstance = axios.create();
 
 const apiPrefixInterceptor = (req: InternalAxiosRequestConfig) => {
-  if (!req.baseURL?.includes("http:") && !req.url?.includes("https:")) {
+  if (!req.url?.includes("http:") && !req.url?.includes("https:")) {
     req.baseURL = `${process.env.apiUrl}`;
   }
 };
@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(undefined, (error) => {
   } else {
     throw {
       errors: {
-        request: ["has some internal server error"],
+        request: ["has some internal server errors"],
       },
     } as ErrorResponse;
   }
