@@ -4,7 +4,9 @@
 
 .form-container {
   text-align: center;
-
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 620px;
   a {
     color: var(--green-color);
     text-decoration: none;
@@ -19,20 +21,19 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-width: 620px;
     margin: 16px auto;
+  }
+  .submit-btn {
+    display: flex;
+    margin-left: auto;
+    color: var(--white-color);
+    background-color: var(--green-color);
+    border-color: var(--green-color);
 
-    .submit-btn {
-      margin-left: auto;
+    &:hover {
       color: var(--white-color);
-      background-color: var(--green-color);
-      border-color: var(--green-color);
-
-      &:hover {
-        color: var(--white-color);
-        background-color: var(--extra-green-color);
-        border-color: var(--extra-green-color);
-      }
+      background-color: var(--extra-green-color);
+      border-color: var(--extra-green-color);
     }
   }
 }
