@@ -1,4 +1,5 @@
-import React from "react";
+import EditorForm from "@/components/editor/editor-form";
+
 export default function Editor() {
-  return <></>;
+  return <EditorForm />;
 }
