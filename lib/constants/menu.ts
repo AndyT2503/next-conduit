@@ -11,27 +11,27 @@ export const NON_AUTH_MENU: NavBarMenu[] = [
     title: 'Home',
   },
   {
-    url: 'login',
+    url: '/login',
     title: 'Sign in',
   },
   {
-    url: 'register',
+    url: '/register',
     title: 'Sign up',
   },
 ];
 
 export const AUTH_MENU: NavBarMenu[] = [
   {
-    url: '',
+    url: '/',
     title: 'Home',
   },
   {
-    url: 'editor',
+    url: '/editor',
     title: 'New Article',
     icon: 'fa-solid fa-pen-to-square',
   },
   {
-    url: 'settings',
+    url: '/settings',
     title: 'Settings',
     icon: 'fa-solid fa-gear',
   },

@@ -19,7 +19,7 @@ export default function Header() {
         ...AUTH_MENU,
         {
           title: user.username,
-          url: `@${user.username}`,
+          url: `/@${user.username}`,
           image: user.image,
         },
       ]);
@@ -27,30 +27,25 @@ export default function Header() {
       setMenu(NON_AUTH_MENU);
     }
   }, [user]);
-  
-  const menuItems = useMemo(
-    () =>
-      menu.map((item) => (
-        <Link
-          key={item.url}
-          href={item.url}
-          className={router.pathname == `/${item.url}` ? style.active : ""}
-        >
-          {item.icon && <i className={`${item.icon} me-1`}></i>}
-          {item.image && (
-            <Image
-              className={style["user-avatar"]}
-              src={item.image}
-              alt={item.title}
-              width="26"
-              height="26"
-            />
-          )}
-          {item.title}
-        </Link>
-      )),
-    [menu]
-  );
+  const menuItems = menu.map((item) => (
+    <Link
+      key={item.url}
+      href={item.url}
+      className={router.pathname == `${item.url}` ? style.active : ""}
+    >
+      {item.icon && <i className={`${item.icon} me-1`}></i>}
+      {item.image && (
+        <Image
+          className={style["user-avatar"]}
+          src={item.image}
+          alt={item.title}
+          width="26"
+          height="26"
+        />
+      )}
+      {item.title}
+    </Link>
+  ));
   
   return (
     <header className={style.header}>
