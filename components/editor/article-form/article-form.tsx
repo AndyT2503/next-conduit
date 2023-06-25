@@ -1,30 +1,39 @@
 import FormErrors from "@/components/common/form-errors/form-errors";
 import { UpsertArticleBodyRequest } from "@/lib/api";
-import { ErrorResponse } from "@/lib/models";
-import { useForm } from "react-hook-form";
+import { Article, ErrorResponse } from "@/lib/models";
+import { Controller, useForm, useFormContext } from "react-hook-form";
 import TagListSelect from "./tag-list-select/tag-list-select";
+import { useEffect } from "react";
 
 export default function ArticleForm({
   errorResponse,
+  handleSubmit,
+  article,
 }: {
   errorResponse: ErrorResponse | null;
+  handleSubmit: (value: UpsertArticleBodyRequest) => void;
+  article?: Article;
 }) {
-  const { register, getValues, setValue } = useForm<UpsertArticleBodyRequest>();
+  const { register, getValues, setValue, control } =
+    useForm<UpsertArticleBodyRequest>({
+      defaultValues: {
+        tagList: [],
+      },
+    });
+  useEffect(() => {
+    if (article) {
+      setValue("body", article.body);
+      setValue("description", article.description);
+      setValue("tagList", article.tagList);
+      setValue("title", article.title);
+    }
+  }, []);
+
   const onSubmit = () => {
-    console.log(getValues());
+    handleSubmit(getValues());
   };
-
-  const onTagSelectedChange = (value: string[]) => {
-    setValue("tagList", value);
-  };
-
   return (
-    <div
-      onSubmit={(e) => {
-        e?.preventDefault();
-      }}
-      className="form-container"
-    >
+    <div className="form-container">
       <form>
         <FormErrors errorResponse={errorResponse}></FormErrors>
         <input
@@ -46,9 +55,12 @@ export default function ArticleForm({
           placeholder="Write your article (in markdown)"
         ></textarea>
         <div className="form-group">
-          <TagListSelect
-            tagList={getValues("tagList")}
-            onTagSelectedChange={onTagSelectedChange}
+          <Controller
+            control={control}
+            name="tagList"
+            render={({ field: { onChange, value } }) => (
+              <TagListSelect tagList={value} onTagSelectedChange={onChange} />
+            )}
           />
         </div>
       </form>

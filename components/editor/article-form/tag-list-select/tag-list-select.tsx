@@ -7,34 +7,25 @@ export default function TagListSelect({
   tagList: string[];
   onTagSelectedChange: (value: string[]) => void;
 }) {
-  const [tagsSelected, setTagsSelected] = useState<string[]>([]);
   const handleRemoveTagSelected = (e: React.MouseEvent<HTMLElement>) => {
     const tagRemove = e.currentTarget.getAttribute("id");
-    setTagsSelected(tagsSelected.filter((tag) => tag !== tagRemove));
+    const newTagsSelected = tagList.filter((tag) => tag !== tagRemove);
+    onTagSelectedChange(newTagsSelected);
   };
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const newTag = e.currentTarget.value;
-      if(tagsSelected.some(tag => tag === newTag)) {
+      if (tagList.some((tag) => tag === newTag)) {
         return;
       }
       e.currentTarget.value = "";
-      setTagsSelected([...tagsSelected, newTag]);
+      const newTagsSelected = [...tagList, newTag];
+      onTagSelectedChange(newTagsSelected);
     }
   };
 
-  useEffect(() => {
-    if (tagList && tagList.length > 0) {
-      setTagsSelected(tagList);
-    }
-  }, []);
-
-  useEffect(() => {
-    onTagSelectedChange(tagsSelected);
-  }, [tagsSelected]);
-
-  const tagSelectedElements = tagsSelected.map((item) => (
+  const tagSelectedElements = tagList.map((item) => (
     <div key={item} className={`${style["tag-default"]} ${style["tag-pill"]}`}>
       <i
         id={item}
