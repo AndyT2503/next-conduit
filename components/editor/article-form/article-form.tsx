@@ -1,18 +1,21 @@
 import FormErrors from "@/components/common/form-errors/form-errors";
 import { UpsertArticleBodyRequest } from "@/lib/api";
+import { FormStatus } from "@/lib/constants";
 import { Article, ErrorResponse } from "@/lib/models";
-import { Controller, useForm, useFormContext } from "react-hook-form";
-import TagListSelect from "./tag-list-select/tag-list-select";
 import { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
+import TagListSelect from "./tag-list-select/tag-list-select";
 
 export default function ArticleForm({
   errorResponse,
   handleSubmit,
   article,
+  formStatus,
 }: {
   errorResponse: ErrorResponse | null;
   handleSubmit: (value: UpsertArticleBodyRequest) => void;
   article?: Article;
+  formStatus: FormStatus;
 }) {
   const { register, getValues, setValue, control } =
     useForm<UpsertArticleBodyRequest>({
@@ -64,7 +67,11 @@ export default function ArticleForm({
           />
         </div>
       </form>
-      <button onClick={onSubmit} className="btn submit-btn btn-lg">
+      <button
+        disabled={formStatus === FormStatus.Pending}
+        onClick={onSubmit}
+        className="btn submit-btn btn-lg"
+      >
         Publish Article
       </button>
     </div>

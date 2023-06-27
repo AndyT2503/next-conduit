@@ -1,17 +1,16 @@
-import { AuthState } from "@/lib/auth/auth.slice";
 import { AUTH_MENU, NON_AUTH_MENU } from "@/lib/constants";
 import { RootState } from "@/lib/store/app.store";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import style from "./header.module.scss";
 
 export default function Header() {
   const [menu, setMenu] = useState(NON_AUTH_MENU);
   const router = useRouter();
-  const { user } = useSelector<RootState, AuthState>((s) => s.auth);
+  const { user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
 
   useEffect(() => {
     if (user) {
@@ -46,7 +45,7 @@ export default function Header() {
       {item.title}
     </Link>
   ));
-  
+
   return (
     <header className={style.header}>
       <Link href="/" className={style.logo}>
