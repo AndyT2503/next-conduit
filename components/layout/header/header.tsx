@@ -1,4 +1,4 @@
-import { AuthState } from "@/lib/auth/auth-slice";
+import { AuthState } from "@/lib/auth/auth.slice";
 import { AUTH_MENU, NON_AUTH_MENU } from "@/lib/constants";
 import { RootState } from "@/lib/store/app.store";
 import Image from "next/image";

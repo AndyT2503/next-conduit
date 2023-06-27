@@ -2,12 +2,12 @@ import { StorageKey } from "@/lib/constants";
 import { ErrorResponse, User } from "@/lib/models";
 import { storageService } from "@/lib/utils";
 import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loginUser, registerUser, updateCurrentUser } from "./auth-action";
+import { loginUser, registerUser, updateCurrentUser } from "./auth.action";
 
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
-  status: "pending" | "done";
+  status: "pending" | "idle";
   errorResponse: ErrorResponse | null;
 }
 
@@ -16,7 +16,7 @@ const initialState = (): AuthState => {
   return {
     isAuthenticated: !!user,
     user,
-    status: "done",
+    status: "idle",
     errorResponse: null,
   };
 };
@@ -69,7 +69,7 @@ export const authSlice = createSlice({
       (action: Action<string>) =>
         action.type.endsWith("/fulfilled") || action.type.endsWith("/rejected"),
       (state) => {
-        state.status = "done";
+        state.status = "idle";
       }
     );
     builder.addMatcher(
