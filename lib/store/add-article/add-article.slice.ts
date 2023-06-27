@@ -19,11 +19,7 @@ export const addArticleSlice = createSlice({
   name: "addArticle",
   initialState,
   reducers: {
-    reset: (state) => {
-      state.article = null;
-      state.errorResponse = null;
-      state.formStatus = FormStatus.Idle;
-    },
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder.addCase(createNewArticle.fulfilled, (state, action) => {
