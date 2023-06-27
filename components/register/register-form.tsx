@@ -1,6 +1,6 @@
 import { RegisterBodyRequest } from "@/lib/api";
 import { registerUser } from "@/lib/auth/auth.action";
-import { AuthState, authSlice } from "@/lib/auth/auth.slice";
+import { authSlice } from "@/lib/auth/auth.slice";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,13 +8,14 @@ import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import FormErrors from "../common/form-errors/form-errors";
+import { FormStatus } from "@/lib/constants";
 
 export default function RegisterForm() {
   const { register, handleSubmit } = useForm<RegisterBodyRequest>();
   const router = useRouter();
   const { isAuthenticated, status, errorResponse } = useSelector<
     RootState,
-    AuthState
+    RootState['auth']
   >((s) => s.auth);
   const dispatch: AppDispatch = useDispatch();
 
@@ -62,7 +63,7 @@ export default function RegisterForm() {
           placeholder="Password"
         />
         <button
-          disabled={status === "pending"}
+          disabled={status === FormStatus.Pending}
           type="submit"
           className={`btn submit-btn btn-lg`}
         >

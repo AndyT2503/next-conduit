@@ -1,12 +1,13 @@
 import { UpdateCurrentUserBodyRequest } from "@/lib/api";
 import { updateCurrentUser } from "@/lib/auth/auth.action";
-import { authSlice, AuthState } from "@/lib/auth/auth.slice";
+import { authSlice } from "@/lib/auth/auth.slice";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import FormErrors from "../common/form-errors/form-errors";
+import { FormStatus } from "@/lib/constants";
 
 export default function SettingForm() {
   const { register, handleSubmit, setValue } =
@@ -14,7 +15,7 @@ export default function SettingForm() {
   const router = useRouter();
   const { isAuthenticated, status, errorResponse, user } = useSelector<
     RootState,
-    AuthState
+    RootState["auth"]
   >((s) => s.auth);
   const dispatch: AppDispatch = useDispatch();
 
@@ -84,7 +85,7 @@ export default function SettingForm() {
           placeholder="Password"
         />
         <button
-          disabled={status === "pending"}
+          disabled={status === FormStatus.Pending}
           type="submit"
           className={`btn submit-btn btn-lg`}
         >

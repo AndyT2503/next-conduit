@@ -1,13 +1,13 @@
-import { StorageKey } from "@/lib/constants";
+import { FormStatus, StorageKey } from "@/lib/constants";
 import { ErrorResponse, User } from "@/lib/models";
 import { storageService } from "@/lib/utils";
 import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loginUser, registerUser, updateCurrentUser } from "./auth.action";
 
-export interface AuthState {
+interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
-  status: "pending" | "idle";
+  status: FormStatus;
   errorResponse: ErrorResponse | null;
 }
 
@@ -16,7 +16,7 @@ const initialState = (): AuthState => {
   return {
     isAuthenticated: !!user,
     user,
-    status: "idle",
+    status: FormStatus.Idle,
     errorResponse: null,
   };
 };
@@ -38,14 +38,14 @@ export const authSlice = createSlice({
     builder.addCase(updateCurrentUser.fulfilled, (state, action) => {
       storageService("localStorage").setItem(
         StorageKey.User,
-        action.payload.user
+        action.payload.user,
       );
       state.user = action.payload.user;
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       storageService("localStorage").setItem(
         StorageKey.User,
-        action.payload.user
+        action.payload.user,
       );
       state.user = action.payload.user;
       state.isAuthenticated = true;
@@ -53,7 +53,7 @@ export const authSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       storageService("localStorage").setItem(
         StorageKey.User,
-        action.payload.user
+        action.payload.user,
       );
       state.user = action.payload.user;
       state.isAuthenticated = true;
@@ -61,23 +61,23 @@ export const authSlice = createSlice({
     builder.addMatcher(
       (action) => action.type.endsWith("/pending"),
       (state) => {
-        state.status = "pending";
+        state.status = FormStatus.Pending;
         state.errorResponse = null;
-      }
+      },
     );
     builder.addMatcher(
       (action: Action<string>) =>
         action.type.endsWith("/fulfilled") || action.type.endsWith("/rejected"),
       (state) => {
-        state.status = "idle";
-      }
+        state.status = FormStatus.Idle;
+      },
     );
     builder.addMatcher(
       (action: Action<string>): action is PayloadAction<ErrorResponse> =>
         action.type.endsWith("/rejected"),
       (state, action) => {
         state.errorResponse = action.payload;
-      }
+      },
     );
   },
 });
