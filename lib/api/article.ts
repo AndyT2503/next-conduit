@@ -23,12 +23,18 @@ export const articleAPI = {
       `articles/${slug}`,
       {
         article,
-      },
+      }
     );
     return response.data;
   },
   deleteArticle: async (slug: string) => {
     const response = await axiosRequest.delete(`articles/${slug}`);
+    return response.data;
+  },
+  getArticle: async (slug: string) => {
+    const response = await axiosRequest.get<ArticleAPIResponse>(
+      `articles/${slug}`
+    );
     return response.data;
   },
 };

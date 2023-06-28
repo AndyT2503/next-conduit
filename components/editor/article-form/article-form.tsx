@@ -14,7 +14,7 @@ export default function ArticleForm({
 }: {
   errorResponse: ErrorResponse | null;
   handleSubmit: (value: UpsertArticleBodyRequest) => void;
-  article?: Article;
+  article?: Article | null;
   formStatus: FormStatus;
 }) {
   const { register, getValues, setValue, control } =
@@ -30,7 +30,7 @@ export default function ArticleForm({
       setValue("tagList", article.tagList);
       setValue("title", article.title);
     }
-  }, []);
+  }, [article]);
 
   const onSubmit = () => {
     handleSubmit(getValues());

@@ -11,6 +11,8 @@ export default function AddArticleForm() {
     RootState,
     RootState["addArticle"]
   >((s) => s.addArticle);
+  const state = useSelector((s) => s);
+  console.log(state);
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const handleSubmit = (value: UpsertArticleBodyRequest) => {
@@ -31,9 +33,10 @@ export default function AddArticleForm() {
   useEffect(() => {
     return () => {
       dispatch(addArticleSlice.actions.reset());
+      console.log("destroy", formStatus);
     };
   }, []);
-
+  console.log("mount", formStatus);
   return (
     <ArticleForm
       formStatus={formStatus}
