@@ -1,6 +1,5 @@
 import { LoginBodyRequest } from "@/lib/api";
-import { loginUser } from "@/lib/store/auth/auth.action";
-import { authSlice } from "@/lib/store/auth/auth.slice";
+import { authSlice, loginUser } from "@/lib/store/auth";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import Link from "next/link";
 import { useRouter } from "next/router";

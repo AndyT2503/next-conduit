@@ -1,6 +1,5 @@
 import { RegisterBodyRequest } from "@/lib/api";
-import { registerUser } from "@/lib/store/auth/auth.action";
-import { authSlice } from "@/lib/store/auth/auth.slice";
+import { authSlice, registerUser } from "@/lib/store/auth";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import Link from "next/link";
 import { useRouter } from "next/router";

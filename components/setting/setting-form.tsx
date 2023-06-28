@@ -1,6 +1,5 @@
 import { UpdateCurrentUserBodyRequest } from "@/lib/api";
-import { updateCurrentUser } from "@/lib/store/auth/auth.action";
-import { authSlice } from "@/lib/store/auth/auth.slice";
+import { authSlice, updateCurrentUser } from "@/lib/store/auth";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import { useRouter } from "next/router";
 import { useEffect } from "react";

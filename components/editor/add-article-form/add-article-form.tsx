@@ -1,11 +1,10 @@
 import { UpsertArticleBodyRequest } from "@/lib/api";
+import { addArticleSlice, createNewArticle } from "@/lib/store/add-article";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewArticle } from "../../../lib/store/add-article/add-article.action";
 import ArticleForm from "../article-form/article-form";
-import { addArticleSlice } from "@/lib/store/add-article/add-article.slice";
 
 export default function AddArticleForm() {
   const { article, errorResponse, formStatus } = useSelector<
