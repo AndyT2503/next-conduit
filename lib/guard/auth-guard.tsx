@@ -26,17 +26,12 @@ export function AuthGuard({ children }: React.PropsWithChildren<unknown>) {
 
   function authCheck(url: string) {
     const privatePath = ["/settings", "/editor"];
-    if (!isAuthenticated && privatePath.some((path) => url.includes(path))) {
+    if (!isAuthenticated && privatePath.some(path => url.includes(path))) {
       setAuthorized(false);
       router.push("/login");
     } else {
       setAuthorized(true);
     }
   }
-
-  if (!authorized) {
-    return <></>;
-  } else {
-    return children;
-  }
+  return authorized && children;
 }
