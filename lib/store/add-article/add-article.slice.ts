@@ -28,6 +28,7 @@ export const addArticleSlice = createSlice({
     });
     builder.addMatcher(
       (action: Action<string>): action is PayloadAction<ErrorResponse> =>
+        action.type.startsWith("addArticle") &&
         action.type.endsWith("/rejected"),
       (state, action) => {
         state.errorResponse = action.payload;
@@ -35,7 +36,9 @@ export const addArticleSlice = createSlice({
       },
     );
     builder.addMatcher(
-      (action) => action.type.endsWith("/pending"),
+      (action: Action<string>) =>
+        action.type.startsWith("addArticle") &&
+        action.type.endsWith("/pending"),
       (state) => {
         state.formStatus = FormStatus.Pending;
         state.errorResponse = null;

@@ -59,7 +59,8 @@ export const authSlice = createSlice({
       state.isAuthenticated = true;
     });
     builder.addMatcher(
-      (action) => action.type.endsWith("/pending"),
+      (action: Action<string>) =>
+        action.type.startsWith("auth") && action.type.endsWith("/pending"),
       (state) => {
         state.status = FormStatus.Pending;
         state.errorResponse = null;
@@ -67,14 +68,16 @@ export const authSlice = createSlice({
     );
     builder.addMatcher(
       (action: Action<string>) =>
-        action.type.endsWith("/fulfilled") || action.type.endsWith("/rejected"),
+        (action.type.startsWith("auth") &&
+          action.type.endsWith("/fulfilled")) ||
+        (action.type.startsWith("auth") && action.type.endsWith("/rejected")),
       (state) => {
         state.status = FormStatus.Idle;
       },
     );
     builder.addMatcher(
       (action: Action<string>): action is PayloadAction<ErrorResponse> =>
-        action.type.endsWith("/rejected"),
+        action.type.startsWith("auth") && action.type.endsWith("/rejected"),
       (state, action) => {
         state.errorResponse = action.payload;
       },

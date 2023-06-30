@@ -1,17 +1,18 @@
 import { UpsertArticleBodyRequest } from "@/lib/api";
+import { addArticleSlice, createNewArticle } from "@/lib/store/add-article";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewArticle } from "../../../lib/store/add-article/add-article.action";
 import ArticleForm from "../article-form/article-form";
-import { addArticleSlice } from "@/lib/store/add-article/add-article.slice";
 
 export default function AddArticleForm() {
   const { article, errorResponse, formStatus } = useSelector<
     RootState,
     RootState["addArticle"]
   >((s) => s.addArticle);
+  const state = useSelector((s) => s);
+  console.log(state);
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const handleSubmit = (value: UpsertArticleBodyRequest) => {
@@ -32,9 +33,10 @@ export default function AddArticleForm() {
   useEffect(() => {
     return () => {
       dispatch(addArticleSlice.actions.reset());
+      console.log("destroy", formStatus);
     };
   }, []);
-
+  console.log("mount", formStatus);
   return (
     <ArticleForm
       formStatus={formStatus}

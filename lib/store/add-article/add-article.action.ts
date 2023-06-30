@@ -1,8 +1,9 @@
 import { articleAPI, UpsertArticleBodyRequest } from "@/lib/api";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+
 export const createNewArticle = createAsyncThunk(
-  "article/create",
+  "addArticle/create",
   async (article: UpsertArticleBodyRequest, { rejectWithValue }) => {
     try {
       const response = await articleAPI.createArticle(article);
