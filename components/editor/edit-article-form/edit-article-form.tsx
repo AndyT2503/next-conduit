@@ -59,7 +59,7 @@ export default function EditArticleForm() {
       article={article}
       formStatus={formStatus}
       errorResponse={errorResponse}
-      handleSubmit={handleSubmit}
+      onSubmit={handleSubmit}
     />
   );
 }

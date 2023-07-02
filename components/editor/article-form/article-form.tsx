@@ -8,12 +8,12 @@ import TagListSelect from "./tag-list-select/tag-list-select";
 
 export default function ArticleForm({
   errorResponse,
-  handleSubmit,
+  onSubmit,
   article,
   formStatus,
 }: {
   errorResponse: ErrorResponse | null;
-  handleSubmit: (value: UpsertArticleBodyRequest) => void;
+  onSubmit: (value: UpsertArticleBodyRequest) => void;
   article?: Article | null;
   formStatus: FormStatus;
 }) {
@@ -32,8 +32,8 @@ export default function ArticleForm({
     }
   }, [article]);
 
-  const onSubmit = () => {
-    handleSubmit(getValues());
+  const handleSubmit = () => {
+    onSubmit(getValues());
   };
   return (
     <div className="form-container">
@@ -69,7 +69,7 @@ export default function ArticleForm({
       </form>
       <button
         disabled={formStatus === FormStatus.Pending}
-        onClick={onSubmit}
+        onClick={handleSubmit}
         className="btn submit-btn btn-lg"
       >
         Publish Article
