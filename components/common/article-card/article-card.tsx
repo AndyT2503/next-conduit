@@ -1,16 +1,16 @@
 import { Article } from "@/lib/models";
-import style from "./article.module.scss";
+import style from "./article-card.module.scss";
 import Link from "next/link";
 import Image from "next/image";
-export default function Article({
+export default function ArticleCard({
   article,
-  toggleFavorite,
+  onToggleFavorite,
 }: {
   article: Article;
-  toggleFavorite: (article: Article) => void;
+  onToggleFavorite: (article: Article) => void;
 }) {
-  const onFavoriteArticle = () => {
-    toggleFavorite(article);
+  const handleFavoriteArticle = () => {
+    onToggleFavorite(article);
   };
 
   const tagElements = article.tagList.map((tag) => (
@@ -43,7 +43,7 @@ export default function Article({
             className={`btn btn-sm ms-auto ${
               article.favorited ? "unfavorite-btn" : "favorite-btn"
             }`}
-            onClick={onFavoriteArticle}
+            onClick={handleFavoriteArticle}
           >
             <i className="fa-solid fa-heart"></i> {article.favoritesCount}
           </button>
