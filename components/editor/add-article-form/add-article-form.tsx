@@ -2,7 +2,7 @@ import { UpsertArticleBodyRequest } from "@/lib/api";
 import { addArticleSlice, createNewArticle } from "@/lib/store/add-article";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ArticleForm from "../article-form/article-form";
 

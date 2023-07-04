@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import style from "./tag-list-select.module.scss";
+
+type TagListSelectProps = {
+  tagList: string[];
+  onTagSelectedChange: (value: string[]) => void;
+};
+
 export default function TagListSelect({
   tagList,
   onTagSelectedChange,
-}: {
-  tagList: string[];
-  onTagSelectedChange: (value: string[]) => void;
-}) {
+}: TagListSelectProps) {
   const handleRemoveTagSelected = (e: React.MouseEvent<HTMLElement>) => {
     const tagRemove = e.currentTarget.getAttribute("id");
     const newTagsSelected = tagList.filter((tag) => tag !== tagRemove);

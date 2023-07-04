@@ -1,14 +1,17 @@
 import { Article } from "@/lib/models";
-import style from "./article-card.module.scss";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import style from "./article-card.module.scss";
+
+type ArticleCardProps = {
+  article: Article;
+  onToggleFavorite: (article: Article) => void;
+};
+
 export default function ArticleCard({
   article,
   onToggleFavorite,
-}: {
-  article: Article;
-  onToggleFavorite: (article: Article) => void;
-}) {
+}: ArticleCardProps) {
   const handleFavoriteArticle = () => {
     onToggleFavorite(article);
   };

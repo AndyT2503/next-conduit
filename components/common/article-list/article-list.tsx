@@ -1,13 +1,15 @@
 import { Article } from "@/lib/models";
 import ArticleCard from "../article-card/article-card";
 
+type ArticleListProps = {
+  articleList: Article[];
+  onToggleFavorite: (article: Article) => void;
+};
+
 export default function ArticleList({
   articleList,
   onToggleFavorite,
-}: {
-  articleList: Article[];
-  onToggleFavorite: (article: Article) => void;
-}) {
+}: ArticleListProps) {
   if (articleList.length === 0) {
     return (
       <div id="no-article" className="py-4">

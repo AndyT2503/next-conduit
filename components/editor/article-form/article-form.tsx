@@ -6,17 +6,19 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TagListSelect from "./tag-list-select/tag-list-select";
 
+type ArticleFormProps = {
+  errorResponse: ErrorResponse | null;
+  onSubmit: (value: UpsertArticleBodyRequest) => void;
+  article?: Article | null;
+  formStatus: FormStatus;
+};
+
 export default function ArticleForm({
   errorResponse,
   onSubmit,
   article,
   formStatus,
-}: {
-  errorResponse: ErrorResponse | null;
-  onSubmit: (value: UpsertArticleBodyRequest) => void;
-  article?: Article | null;
-  formStatus: FormStatus;
-}) {
+}: ArticleFormProps) {
   const { register, getValues, setValue, control } =
     useForm<UpsertArticleBodyRequest>({
       defaultValues: {

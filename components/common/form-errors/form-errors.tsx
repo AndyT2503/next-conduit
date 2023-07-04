@@ -1,12 +1,12 @@
-import { useMemo } from "react";
 import { ErrorResponse } from "@/lib/models";
+import { useMemo } from "react";
 import style from "./form-errors.module.scss";
 
-export default function FormErrors({
-  errorResponse
-}: {
+type FormErrorsProps = {
   errorResponse: ErrorResponse | null;
-}) {
+};
+
+export default function FormErrors({ errorResponse }: FormErrorsProps) {
   const formErrors = useMemo(() => {
     if (!errorResponse) {
       return null;
