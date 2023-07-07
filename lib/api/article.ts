@@ -37,4 +37,16 @@ export const articleAPI = {
     );
     return response.data;
   },
+  favoriteArticle: async (slug: string) => {
+    const response = await axiosRequest.post<ArticleAPIResponse>(
+      `articles/${slug}/favorite`
+    );
+    return response.data;
+  },
+  unFavoriteArticle: async (slug: string) => {
+    const response = await axiosRequest.delete<ArticleAPIResponse>(
+      `articles/${slug}/favorite`
+    );
+    return response.data;
+  },
 };

@@ -12,3 +12,27 @@ export const getArticleDetail = createAsyncThunk(
     }
   },
 );
+
+export const deleteArticle = createAsyncThunk(
+  "articleDetail/deleteArticle",
+  async (slug: string, { rejectWithValue }) => {
+    try {
+      const response = await articleAPI.deleteArticle(slug);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+)
+
+export const favoriteArticle = createAsyncThunk(
+  "articleDetail/favoriteArticle",
+  async (slug: string, { rejectWithValue }) => {
+    try {
+      const response = await articleAPI.favoriteArticle(slug);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+)

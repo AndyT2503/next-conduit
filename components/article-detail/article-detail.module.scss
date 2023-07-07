@@ -9,47 +9,14 @@
 
   .container {
     max-width: 1176px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0;
     .title {
       font-size: 2.8rem;
       font-weight: 600;
       margin-bottom: 30.016px;
     }
-  }
-}
-
-.article-meta {
-  display: flex;
-  align-items: center;
-  .avatar {
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    margin-right: 8px;
-    object-fit: cover;
-  }
-
-  .info {
-    line-height: 1rem;
-    .author {
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .date {
-      font-size: 12.8px;
-      color: var(--extra-white-gray-color);
-      margin-bottom: 0;
-    }
-  }
-
-  .group-btn {
-    display: flex;
-    gap: 6px;
-    margin-left: 16px;
   }
 }
 
