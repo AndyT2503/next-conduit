@@ -1,6 +1,9 @@
 import { Article, Comment } from "@/lib/models";
 import { createSlice } from "@reduxjs/toolkit";
-import { getArticleDetail } from "./article-detail.action";
+import {
+  getArticleDetail,
+  toggleFavoriteArticle,
+} from "./article-detail.action";
 
 interface ArticleDetailState {
   article: Article | null;
@@ -26,6 +29,9 @@ export const articleDetailSlice = createSlice({
     });
     builder.addCase(getArticleDetail.rejected, (state) => {
       state.isArticleExist = false;
+    });
+    builder.addCase(toggleFavoriteArticle.fulfilled, (state, action) => {
+      state.article = action.payload.article;
     });
   },
 });

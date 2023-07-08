@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Article } from "@/lib/models";
 import { ReactElement } from "react";
 import { formatDateTime } from "@/lib/utils";
+import { toggleFavoriteArticle } from "@/lib/store/article-detail";
 type ArticleMetaDataProps = {
   type: "header" | "body";
 };
@@ -21,7 +22,9 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
     return <></>;
   }
 
-  const handleToggleFavoriteArticle = (article: Article) => {};
+  const handleToggleFavoriteArticle = (article: Article) => {
+    dispatch(toggleFavoriteArticle(article.slug));
+  };
   const handleToggleFollowAuthor = (article: Article) => {};
   const handleDeleteArticle = (article: Article) => {};
 
@@ -38,12 +41,12 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
           {article.author.username}
         </button>
         <button
-          className={`btn favorite-btn btn-sm ${
-            article.favorited ? style["unfavorite-btn"] : style["favorite-btn"]
+          className={`btn btn-sm ${
+            article.favorited ? "unfavorite-btn" : "favorite-btn"
           }`}
           onClick={() => handleToggleFavoriteArticle(article)}
         >
-          <i className="fa-solid fa-heart"></i> Favorite Article (
+          <i className="fa-solid fa-heart"></i> { article.favorited ? 'Unfavorite Article' : 'Favorite Article'} (
           {article.favoritesCount})
         </button>
       </>

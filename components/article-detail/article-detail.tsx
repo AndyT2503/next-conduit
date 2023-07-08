@@ -40,7 +40,7 @@ export default function ArticleDetail() {
   }
 
   const tagListElement = article.tagList.map((tag) => (
-    <span className={style["tag-default"]}>{tag}</span>
+    <span key={tag} className={style["tag-default"]}>{tag}</span>
   ));
   return (
     <>
