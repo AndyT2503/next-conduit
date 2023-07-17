@@ -1,6 +1,8 @@
 import { Article, Comment } from "@/lib/models";
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  createComment,
+  getArticleComments,
   getArticleDetail,
   toggleFavoriteArticle,
 } from "./article-detail.action";
@@ -32,6 +34,9 @@ export const articleDetailSlice = createSlice({
     });
     builder.addCase(toggleFavoriteArticle.fulfilled, (state, action) => {
       state.article = action.payload.article;
+    });
+    builder.addCase(getArticleComments.fulfilled, (state, action) => {
+      state.comments = action.payload.comments;
     });
   },
 });

@@ -1,8 +1,7 @@
-import appStore from "@/lib/store/app.store";
 import { articleAPI } from "@/lib/api";
+import { ArticleAPIResponse } from "@/lib/models";
+import { RootState } from "@/lib/store/app.store";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
-import { RootState } from "../app.store";
 
 export const getArticleDetail = createAsyncThunk(
   "articleDetail/getArticleDetail",
@@ -28,14 +27,69 @@ export const deleteArticle = createAsyncThunk(
   },
 );
 
-export const toggleFavoriteArticle = createAsyncThunk(
-  "articleDetail/favoriteArticle",
-  async (slug: string, { rejectWithValue }) => {
-    const article = appStore.getState().articleDetail.article;
-    if (!article) {
-      return rejectWithValue('Article does not exist');
+export const createComment = createAsyncThunk(
+  "articleDetail/createComment",
+  async (
+    props: { slug: string; comment: string },
+    { rejectWithValue, dispatch },
+  ) => {
+    try {
+      const response = await articleAPI.createCommentForArticle(props.slug, {
+        body: props.comment,
+      });
+      dispatch(getArticleComments(props.slug));
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
     }
-    try {      
+  },
+);
+
+export const getArticleComments = createAsyncThunk(
+  "articleDetail/getArticleComments",
+  async (slug: string, { rejectWithValue }) => {
+    try {
+      const response = await articleAPI.getArticleComments(slug);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
+
+export const deleteArticleComment = createAsyncThunk(
+  "articleDetail/deleteArticleComment",
+  async (
+    props: { slug: string; commentId: string },
+    { rejectWithValue, dispatch },
+  ) => {
+    try {
+      const response = await articleAPI.deleteArticleComment(
+        props.slug,
+        props.commentId,
+      );
+      dispatch(getArticleComments(props.slug));
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
+
+export const toggleFavoriteArticle = createAsyncThunk<
+  ArticleAPIResponse,
+  string,
+  {
+    state: RootState;
+  }
+>(
+  "articleDetail/toggleFavoriteArticle",
+  async (slug: string, { rejectWithValue, getState }) => {
+    const article = getState().articleDetail.article;
+    if (!article) {
+      return rejectWithValue("Article does not exist");
+    }
+    try {
       if (article.favorited) {
         return await articleAPI.unFavoriteArticle(slug);
       } else {
