@@ -5,6 +5,7 @@ import {
   Comment,
   CommentAPIResponse,
   CommentListAPIResponse,
+  ArticlePagingAPIResponse,
 } from "../models";
 import axiosRequest from "./axios-request";
 export type UpsertArticleBodyRequest = Pick<
@@ -79,6 +80,28 @@ export const articleAPI = {
   deleteArticleComment: async (slug: string, commentId: string) => {
     const response = await axiosRequest.delete(
       `articles/${slug}/comments/${commentId}`,
+    );
+    return response.data;
+  },
+  getGlobalArticles: async (queryParams: ArticleGlobalQueryParams) => {
+    const response = await axiosRequest.get<ArticlePagingAPIResponse>(
+      "/articles",
+      {
+        params: {
+          ...queryParams,
+        },
+      },
+    );
+    return response.data;
+  },
+  getFeed: async (queryParams: PagingQueryParams) => {
+    const response = await axiosRequest.get<ArticlePagingAPIResponse>(
+      "/articles/feed",
+      {
+        params: {
+          ...queryParams,
+        },
+      },
     );
     return response.data;
   },
