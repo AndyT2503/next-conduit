@@ -3,12 +3,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { addArticleSlice } from "@/lib/store/add-article";
 import { editArticleSlice } from "./edit-article";
 import { articleDetailSlice } from "./article-detail";
+import { homeSlice } from "./home";
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     addArticle: addArticleSlice.reducer,
     editArticle: editArticleSlice.reducer,
     articleDetail: articleDetailSlice.reducer,
+    home: homeSlice.reducer,
   },
 });
 
