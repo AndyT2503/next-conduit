@@ -1,6 +1,8 @@
+import { isBrowser } from "./is-browser";
+
 export const storageService = (storeType: "localStorage" | "sessionStorage") => {
   const getStorage = () => {
-    if (typeof window === "undefined") {
+    if (!isBrowser()) {
       return null;
     }
     const store = window[storeType];

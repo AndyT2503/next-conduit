@@ -4,10 +4,10 @@
   margin-bottom: 1rem;
   border-radius: 0.25rem;
 
-  .page-item {
+  .pagination-item {
     display: inline-block;
 
-    .page-link {
+    .pagination-link {
       color: var(--green-color);
     }
 
@@ -15,13 +15,13 @@
     &:focus {
       cursor: pointer;
 
-      .page-link {
+      .pagination-link {
         text-decoration: underline;
       }
     }
 
     &.active {
-      .page-link {
+      .pagination-link {
         border: var(--green-color);
         background-color: var(--green-color);
         color: var(--white-color);

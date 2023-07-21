@@ -4,7 +4,7 @@ import style from "./pagination.module.scss";
 
 type PaginationProps = {
   totalCount: number;
-  limit: number;
+  limit?: number;
   offset: number;
   onOffsetChange: (offset: number) => void;
 };
@@ -25,6 +25,7 @@ export default function Pagination({
   }, [totalCount, limit]);
 
   useEffect(() => {
+    console.log(offset, limit)
     setCurrentPageIndex(offset / limit + 1);
   }, [offset, limit]);
 
@@ -35,14 +36,14 @@ export default function Pagination({
   const listPagination = [...Array(totalPage).keys()].map((index) => (
     <li
       key={index + 1}
-      className={`${style["page-item"]} ${
+      className={`page-item ${style["pagination-item"]} ${
         currentPageIndex === index + 1 ? style.active : ""
       }`}
       onClick={() => {
-        onOffsetChange(index + limit);
+        onOffsetChange(index * limit);
       }}
     >
-      <a className={style["page-link"]}>{index + 1}</a>
+      <a className={`page-link ${style["pagination-link"]}`}>{index + 1}</a>
     </li>
   ));
 

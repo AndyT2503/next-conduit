@@ -1,0 +1,14 @@
+.tab-item {
+  margin-left: 0.2rem;
+  .tab-link {
+    color: var(--extra-gray-color);
+    border-radius: 0;
+    cursor: pointer;
+  }
+}
+
+.active {
+  background: var(--white-color) !important;
+  border-bottom: 2px solid var(--green-color) !important;
+  color: var(--green-color) !important;
+}
