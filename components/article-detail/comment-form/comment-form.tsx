@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 export default function CommentForm() {
   const [comment, setComment] = useState("");
   const router = useRouter();
-  const { currentUser: user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
+  const { currentUser } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -32,7 +32,7 @@ export default function CommentForm() {
           alt="avatar"
           height={30}
           width={30}
-          src={user!.image}
+          src={currentUser!.image}
           className={style.avatar}
         />
         <button

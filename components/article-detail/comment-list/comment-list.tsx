@@ -14,7 +14,7 @@ export default function CommentList() {
   const { comments } = useSelector<RootState, RootState["articleDetail"]>(
     (s) => s.articleDetail,
   );
-  const { currentUser: user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
+  const { currentUser } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
 
@@ -24,7 +24,7 @@ export default function CommentList() {
 
   const commentElements = comments.map((comment) => {
     const deleteBtn =
-      user?.username === comment.author.username ? (
+      currentUser?.username === comment.author.username ? (
         <>
           <a
             className={style["delete-btn"]}
@@ -44,7 +44,7 @@ export default function CommentList() {
         <></>
       );
     return (
-      <div className={style["card-comment"]}>
+      <div key={comment.id} className={style["card-comment"]}>
         <div className="card-body">
           <p>{comment.body}</p>
         </div>

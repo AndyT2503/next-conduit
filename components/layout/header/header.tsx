@@ -10,22 +10,22 @@ import style from "./header.module.scss";
 export default function Header() {
   const [menu, setMenu] = useState(NON_AUTH_MENU);
   const router = useRouter();
-  const { currentUser: user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
+  const { currentUser } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
 
   useEffect(() => {
-    if (user) {
+    if (currentUser) {
       setMenu([
         ...AUTH_MENU,
         {
-          title: user.username,
-          url: `/@${user.username}`,
-          image: user.image,
+          title: currentUser.username,
+          url: `/@${currentUser.username}`,
+          image: currentUser.image,
         },
       ]);
     } else {
       setMenu(NON_AUTH_MENU);
     }
-  }, [user]);
+  }, [currentUser]);
   const menuItems = menu.map((item) => (
     <Link
       key={item.url}

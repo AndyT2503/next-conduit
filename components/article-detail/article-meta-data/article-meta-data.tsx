@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Article } from "@/lib/models";
 import { ReactElement } from "react";
 import { formatDateTime } from "@/lib/utils";
-import { toggleFavoriteArticleInArticleDetailPage } from "@/lib/store/article-detail";
+import { deleteArticle, toggleFavoriteArticleInArticleDetailPage } from "@/lib/store/article-detail";
 type ArticleMetaDataProps = {
   type: "header" | "body";
 };
@@ -15,7 +15,7 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
   const { article } = useSelector<RootState, RootState["articleDetail"]>(
     (s) => s.articleDetail,
   );
-  const { currentUser: user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
+  const { currentUser } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
 
   const dispatch: AppDispatch = useDispatch();
   if (!article) {
@@ -25,11 +25,16 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
   const handleToggleFavoriteArticle = (article: Article) => {
     dispatch(toggleFavoriteArticleInArticleDetailPage(article.slug));
   };
-  const handleToggleFollowAuthor = (article: Article) => {};
-  const handleDeleteArticle = (article: Article) => {};
+
+  const handleToggleFollowAuthor = (article: Article) => {
+    //TODO: implement later
+  };
+  const handleDeleteArticle = (article: Article) => {
+    dispatch(deleteArticle(article.slug));
+  };
 
   let groupBtnElement: ReactElement;
-  if (user?.username !== article.author.username) {
+  if (currentUser?.username !== article.author.username) {
     groupBtnElement = (
       <>
         <button

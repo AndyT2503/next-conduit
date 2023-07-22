@@ -12,7 +12,7 @@ export default function SettingForm() {
   const { register, handleSubmit, setValue } =
     useForm<UpdateCurrentUserBodyRequest>();
   const router = useRouter();
-  const { isAuthenticated, status, errorResponse, currentUser: user } = useSelector<
+  const { isAuthenticated, status, errorResponse, currentUser } = useSelector<
     RootState,
     RootState["auth"]
   >((s) => s.auth);
@@ -25,13 +25,13 @@ export default function SettingForm() {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    if (user) {
-      setValue("bio", user.bio);
-      setValue("email", user.email);
-      setValue("image", user.image);
-      setValue("username", user.username);
+    if (currentUser) {
+      setValue("bio", currentUser.bio);
+      setValue("email", currentUser.email);
+      setValue("image", currentUser.image);
+      setValue("username", currentUser.username);
     }
-  }, [user]);
+  }, [currentUser]);
 
   useEffect(() => {
     return () => {
