@@ -2,8 +2,8 @@ import { profileAPI } from "@/lib/api";
 import { Profile } from "@/lib/models";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const loadProfile = createAsyncThunk(
-  "profile/loadProfile",
+export const getProfile = createAsyncThunk(
+  "profile/getProfile",
   async (username: string, { rejectWithValue }) => {
     try {
       const response = await profileAPI.getProfile(username);
