@@ -5,7 +5,7 @@ import { Action, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loginUser, registerUser, updateCurrentUser } from "./auth.action";
 
 interface AuthState {
-  user: User | null;
+  currentUser: User | null;
   isAuthenticated: boolean;
   status: FormStatus;
   errorResponse: ErrorResponse | null;
@@ -15,7 +15,7 @@ const initialState = (): AuthState => {
   const user = storageService("localStorage").getItem<User>(StorageKey.User);
   return {
     isAuthenticated: !!user,
-    user,
+    currentUser: user,
     status: FormStatus.Idle,
     errorResponse: null,
   };
@@ -27,7 +27,7 @@ export const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       storageService("localStorage").removeItem(StorageKey.User);
-      state.user = null;
+      state.currentUser = null;
       state.isAuthenticated = false;
     },
     resetErrorResponse: (state) => {
@@ -40,14 +40,14 @@ export const authSlice = createSlice({
         StorageKey.User,
         action.payload.user,
       );
-      state.user = action.payload.user;
+      state.currentUser = action.payload.user;
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       storageService("localStorage").setItem(
         StorageKey.User,
         action.payload.user,
       );
-      state.user = action.payload.user;
+      state.currentUser = action.payload.user;
       state.isAuthenticated = true;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
@@ -55,7 +55,7 @@ export const authSlice = createSlice({
         StorageKey.User,
         action.payload.user,
       );
-      state.user = action.payload.user;
+      state.currentUser = action.payload.user;
       state.isAuthenticated = true;
     });
     builder.addMatcher(

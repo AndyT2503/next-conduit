@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 export default function CommentForm() {
   const [comment, setComment] = useState("");
   const router = useRouter();
-  const { user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
+  const { currentUser: user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = () => {

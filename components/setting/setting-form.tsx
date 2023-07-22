@@ -12,7 +12,7 @@ export default function SettingForm() {
   const { register, handleSubmit, setValue } =
     useForm<UpdateCurrentUserBodyRequest>();
   const router = useRouter();
-  const { isAuthenticated, status, errorResponse, user } = useSelector<
+  const { isAuthenticated, status, errorResponse, currentUser: user } = useSelector<
     RootState,
     RootState["auth"]
   >((s) => s.auth);

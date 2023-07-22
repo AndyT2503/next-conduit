@@ -10,7 +10,7 @@ import style from "./header.module.scss";
 export default function Header() {
   const [menu, setMenu] = useState(NON_AUTH_MENU);
   const router = useRouter();
-  const { user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
+  const { currentUser: user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
 
   useEffect(() => {
     if (user) {

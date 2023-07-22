@@ -15,7 +15,7 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
   const { article } = useSelector<RootState, RootState["articleDetail"]>(
     (s) => s.articleDetail,
   );
-  const { user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
+  const { currentUser: user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
 
   const dispatch: AppDispatch = useDispatch();
   if (!article) {

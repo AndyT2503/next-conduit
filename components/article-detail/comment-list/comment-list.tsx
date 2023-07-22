@@ -14,7 +14,7 @@ export default function CommentList() {
   const { comments } = useSelector<RootState, RootState["articleDetail"]>(
     (s) => s.articleDetail,
   );
-  const { user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
+  const { currentUser: user } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
 
