@@ -32,7 +32,7 @@ export default function ArticleDetail() {
     if (!isArticleExist) {
       router.push("/");
     }
-  }, [router]);
+  }, [isArticleExist]);
 
   useEffect(() => {
     return () => {
