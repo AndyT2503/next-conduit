@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Article } from "@/lib/models";
 import { ReactElement } from "react";
 import { formatDateTime } from "@/lib/utils";
-import { toggleFavoriteArticle } from "@/lib/store/article-detail";
+import { toggleFavoriteArticleInArticleDetailPage } from "@/lib/store/article-detail";
 type ArticleMetaDataProps = {
   type: "header" | "body";
 };
@@ -23,7 +23,7 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
   }
 
   const handleToggleFavoriteArticle = (article: Article) => {
-    dispatch(toggleFavoriteArticle(article.slug));
+    dispatch(toggleFavoriteArticleInArticleDetailPage(article.slug));
   };
   const handleToggleFollowAuthor = (article: Article) => {};
   const handleDeleteArticle = (article: Article) => {};

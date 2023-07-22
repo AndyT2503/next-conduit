@@ -76,14 +76,14 @@ export const deleteArticleComment = createAsyncThunk(
   },
 );
 
-export const toggleFavoriteArticle = createAsyncThunk<
+export const toggleFavoriteArticleInArticleDetailPage = createAsyncThunk<
   ArticleAPIResponse,
   string,
   {
     state: RootState;
   }
 >(
-  "articleDetail/toggleFavoriteArticle",
+  "articleDetail/toggleFavoriteArticleInArticleDetailPage",
   async (slug: string, { rejectWithValue, getState }) => {
     const article = getState().articleDetail.article;
     if (!article) {

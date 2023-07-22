@@ -48,7 +48,7 @@ export const changeOffset = createAsyncThunk<
   dispatch(fetchArticles());
 });
 
-export const loadArticles = createAsyncThunk<
+export const loadArticlesHomePage = createAsyncThunk<
   void,
   {
     feedType: FeedType;
@@ -57,19 +57,19 @@ export const loadArticles = createAsyncThunk<
   {
     dispatch: AppDispatch;
   }
->("home/loadArticles", (props, { dispatch }) => {
+>("home/loadArticlesHomePage", (props, { dispatch }) => {
   dispatch(homeSlice.actions.changeFilterParams(props));
   dispatch(fetchArticles());
 });
 
-export const toggleFavoriteArticle = createAsyncThunk<
+export const toggleFavoriteArticleInHomePage = createAsyncThunk<
   void,
   Article,
   {
     dispatch: AppDispatch;
   }
 >(
-  "home/toggleFavoriteArticle",
+  "home/toggleFavoriteArticleInHomePage",
   async (article, { rejectWithValue, dispatch }) => {
     try {
       if (article.favorited) {

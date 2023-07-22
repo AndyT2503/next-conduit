@@ -1,6 +1,6 @@
 import { DEFAULT_LIMIT } from "@/lib/constants";
 import { AppDispatch, RootState } from "@/lib/store/app.store";
-import { FEED_TYPE, FeedType, loadArticles } from "@/lib/store/home";
+import { FEED_TYPE, FeedType, loadArticlesHomePage } from "@/lib/store/home";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./feed-toggle.module.scss";
@@ -62,7 +62,7 @@ export default function FeedToggle() {
     }
 
     dispatch(
-      loadArticles({
+      loadArticlesHomePage({
         feedType,
         params: {
           limit: DEFAULT_LIMIT,

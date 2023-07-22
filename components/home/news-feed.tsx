@@ -3,7 +3,7 @@ import { AppDispatch, RootState } from "@/lib/store/app.store";
 import {
   changeOffset,
   homeSlice,
-  toggleFavoriteArticle,
+  toggleFavoriteArticleInHomePage,
 } from "@/lib/store/home";
 import { isBrowser } from "@/lib/utils";
 import { useEffect } from "react";
@@ -37,7 +37,7 @@ export default function NewsFeed() {
   };
 
   const handleToggleFavorite = (article: Article) => {
-    dispatch(toggleFavoriteArticle(article));
+    dispatch(toggleFavoriteArticleInHomePage(article));
   };
 
   const bannerElements = !isAuthenticated ? (
