@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import {
   getProfile,
   profileSlice,
-  toggleFollowProfile,
+  toggleFollowProfileInProfilePage,
 } from "@/lib/store/profile";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -46,7 +46,7 @@ export default function Profile() {
       return;
     }
     if (profile) {
-      dispatch(toggleFollowProfile(profile));
+      dispatch(toggleFollowProfileInProfilePage(profile));
     }
   };
 

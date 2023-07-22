@@ -6,7 +6,12 @@ import Link from "next/link";
 import { Article } from "@/lib/models";
 import { ReactElement } from "react";
 import { formatDateTime } from "@/lib/utils";
-import { deleteArticle, toggleFavoriteArticleInArticleDetailPage } from "@/lib/store/article-detail";
+import {
+  deleteArticle,
+  toggleFavoriteArticleInArticleDetailPage,
+  toggleFollowProfileInArticleDetailPage,
+} from "@/lib/store/article-detail";
+import { useRouter } from "next/router";
 type ArticleMetaDataProps = {
   type: "header" | "body";
 };
@@ -15,20 +20,30 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
   const { article } = useSelector<RootState, RootState["articleDetail"]>(
     (s) => s.articleDetail,
   );
-  const { currentUser } = useSelector<RootState, RootState["auth"]>((s) => s.auth);
-
+  const { currentUser, isAuthenticated } = useSelector<
+    RootState,
+    RootState["auth"]
+  >((s) => s.auth);
+  const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   if (!article) {
     return <></>;
   }
 
   const handleToggleFavoriteArticle = (article: Article) => {
+    if (!isAuthenticated) {
+      router.push("/register");
+    }
     dispatch(toggleFavoriteArticleInArticleDetailPage(article.slug));
   };
 
   const handleToggleFollowAuthor = (article: Article) => {
-    //TODO: implement later
+    if (!isAuthenticated) {
+      router.push("/register");
+    }
+    dispatch(toggleFollowProfileInArticleDetailPage(article.author));
   };
+  
   const handleDeleteArticle = (article: Article) => {
     dispatch(deleteArticle(article.slug));
   };
@@ -41,8 +56,8 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
           className="btn btn-outline-secondary btn-sm"
           onClick={() => handleToggleFollowAuthor(article)}
         >
-          <i className="fa-solid fa-plus"></i>
-          {article.author.following ? "Unfollow" : "Follow"}
+          <i className="fa-solid fa-plus"></i>{" "}
+          {article.author.following ? "Unfollow" : "Follow"}{" "}
           {article.author.username}
         </button>
         <button
@@ -51,7 +66,8 @@ export default function ArticleMetaData({ type }: ArticleMetaDataProps) {
           }`}
           onClick={() => handleToggleFavoriteArticle(article)}
         >
-          <i className="fa-solid fa-heart"></i> { article.favorited ? 'Unfavorite Article' : 'Favorite Article'} (
+          <i className="fa-solid fa-heart"></i>{" "}
+          {article.favorited ? "Unfavorite Article" : "Favorite Article"} (
           {article.favoritesCount})
         </button>
       </>

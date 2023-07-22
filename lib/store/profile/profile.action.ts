@@ -14,8 +14,8 @@ export const getProfile = createAsyncThunk(
   },
 );
 
-export const toggleFollowProfile = createAsyncThunk(
-  "profile/toggleFollowProfile",
+export const toggleFollowProfileInProfilePage = createAsyncThunk(
+  "profile/toggleFollowProfileInProfilePage",
   async (profile: Profile, { rejectWithValue }) => {
     try {
       if (profile.following) {

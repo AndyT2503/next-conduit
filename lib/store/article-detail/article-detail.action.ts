@@ -1,5 +1,5 @@
-import { articleAPI } from "@/lib/api";
-import { ArticleAPIResponse } from "@/lib/models";
+import { articleAPI, profileAPI } from "@/lib/api";
+import { ArticleAPIResponse, Profile } from "@/lib/models";
 import { RootState } from "@/lib/store/app.store";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -21,6 +21,21 @@ export const deleteArticle = createAsyncThunk(
     try {
       const response = await articleAPI.deleteArticle(slug);
       return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
+
+export const toggleFollowProfileInArticleDetailPage = createAsyncThunk(
+  "articleDetail/toggleFollowProfileInArticleDetailPage",
+  async (profile: Profile, { rejectWithValue }) => {
+    try {
+      if (profile.following) {
+        return await profileAPI.unFollowProfile(profile.username);
+      } else {
+        return await profileAPI.followProfile(profile.username);
+      }
     } catch (err) {
       return rejectWithValue(err);
     }

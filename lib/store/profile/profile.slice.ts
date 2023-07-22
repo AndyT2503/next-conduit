@@ -1,6 +1,6 @@
 import { Profile } from "@/lib/models";
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfile, toggleFollowProfile } from "./profile.action";
+import { getProfile, toggleFollowProfileInProfilePage } from "./profile.action";
 
 interface ProfileState {
   profile: Profile | null;
@@ -20,7 +20,7 @@ export const profileSlice = createSlice({
     builder.addCase(getProfile.fulfilled, (state, action) => {
       state.profile = action.payload.profile;
     });
-    builder.addCase(toggleFollowProfile.fulfilled, (state, action) => {
+    builder.addCase(toggleFollowProfileInProfilePage.fulfilled, (state, action) => {
       state.profile = action.payload.profile;
     });
   },

@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getArticleComments,
   getArticleDetail,
-  toggleFavoriteArticleInArticleDetailPage
+  toggleFavoriteArticleInArticleDetailPage,
+  toggleFollowProfileInArticleDetailPage,
 } from "./article-detail.action";
 
 interface ArticleDetailState {
@@ -31,11 +32,23 @@ export const articleDetailSlice = createSlice({
     builder.addCase(getArticleDetail.rejected, (state) => {
       state.isArticleExist = false;
     });
-    builder.addCase(toggleFavoriteArticleInArticleDetailPage.fulfilled, (state, action) => {
-      state.article = action.payload.article;
-    });
+    builder.addCase(
+      toggleFavoriteArticleInArticleDetailPage.fulfilled,
+      (state, action) => {
+        state.article = action.payload.article;
+      },
+    );
     builder.addCase(getArticleComments.fulfilled, (state, action) => {
       state.comments = action.payload.comments;
     });
+    builder.addCase(
+      toggleFollowProfileInArticleDetailPage.fulfilled,
+      (state, action) => {
+        state.article = {
+          ...state.article!,
+          author: action.payload.profile,
+        };
+      },
+    );
   },
 });

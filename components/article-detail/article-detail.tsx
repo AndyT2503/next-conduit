@@ -51,7 +51,7 @@ export default function ArticleDetail() {
       <Link className={style.link} href="/login">
         Sign in
       </Link>{" "}
-      or
+      or {" "}
       <Link className={style.link} href="/register">
         sign up
       </Link>{" "}
