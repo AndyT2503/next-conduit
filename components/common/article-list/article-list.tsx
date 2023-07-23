@@ -17,13 +17,13 @@ export default function ArticleList({
       </div>
     );
   } else {
-    const handleToggleFavorite = (article: Article) => {
+    const handleToggleFavoriteArticle = (article: Article) => {
       onToggleFavorite(article);
     };
     const articleElement = articleList.map((article) => (
       <ArticleCard
         key={article.slug}
-        onToggleFavorite={handleToggleFavorite}
+        onToggleFavorite={handleToggleFavoriteArticle}
         article={article}
       />
     ));

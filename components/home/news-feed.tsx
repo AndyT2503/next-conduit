@@ -36,7 +36,7 @@ export default function NewsFeed() {
     dispatch(changeOffset(offset));
   };
 
-  const handleToggleFavorite = (article: Article) => {
+  const handleToggleFavoriteArticle = (article: Article) => {
     dispatch(toggleFavoriteArticleInHomePage(article));
   };
 
@@ -60,7 +60,7 @@ export default function NewsFeed() {
           <FeedToggle />
           <ArticleList
             articleList={articleList}
-            onToggleFavorite={handleToggleFavorite}
+            onToggleFavorite={handleToggleFavoriteArticle}
           />
           <Pagination
             totalCount={articleCount}
