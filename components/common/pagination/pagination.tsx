@@ -25,7 +25,6 @@ export default function Pagination({
   }, [totalCount, limit]);
 
   useEffect(() => {
-    console.log(offset, limit)
     setCurrentPageIndex(offset / limit + 1);
   }, [offset, limit]);
 
