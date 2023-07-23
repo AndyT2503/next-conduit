@@ -17,6 +17,7 @@ import ArticleList from "../common/article-list/article-list";
 import Pagination from "../common/pagination/pagination";
 import ArticlesToggle from "./articles-toggle/articles-toggle";
 import style from "./profile.module.scss";
+import { isBrowser } from "@/lib/utils";
 
 export default function Profile() {
   const { profile, currentOffset, articleCount, articleList, articleType } =
@@ -64,6 +65,7 @@ export default function Profile() {
 
   useEffect(() => {
     return () => {
+      console.log('reset');
       dispatch(profileSlice.actions.reset());
     };
   }, []);
@@ -91,6 +93,9 @@ export default function Profile() {
   };
 
   const handleOffsetChange = (offset: number) => {
+    if (isBrowser()) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     dispatch(
       getArticlesInProfilePage({
         articleType,

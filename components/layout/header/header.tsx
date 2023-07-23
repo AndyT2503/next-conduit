@@ -30,7 +30,7 @@ export default function Header() {
     <Link
       key={item.url}
       href={item.url}
-      className={router.asPath == `${item.url}` ? style.active : ""}
+      className={decodeURIComponent(router.asPath) == `${item.url}` ? style.active : ""}
     >
       {item.icon && <i className={`${item.icon} me-1`}></i>}
       {item.image && (

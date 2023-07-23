@@ -33,7 +33,7 @@ export default function ArticlesToggle() {
         <Link
           href={tab.url}
           className={`nav-link ${style["tab-link"]} ${
-            router.asPath == `${tab.url}` ? style.active : ""
+            decodeURIComponent(router.asPath) == `${tab.url}` ? style.active : ""
           }`}
         >
           {tab.title}
