@@ -60,7 +60,7 @@ export default function NewsFeed() {
           <FeedToggle />
           <ArticleList
             articleList={articleList}
-            onToggleFavorite={handleToggleFavoriteArticle}
+            onToggleFavoriteArticle={handleToggleFavoriteArticle}
           />
           <Pagination
             totalCount={articleCount}
