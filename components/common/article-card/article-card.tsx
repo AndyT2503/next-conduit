@@ -7,12 +7,12 @@ import { useRouter } from "next/router";
 
 type ArticleCardProps = {
   article: Article;
-  onToggleFavorite: (article: Article) => void;
+  onToggleFavoriteArticle: (article: Article) => void;
 };
 
 export default function ArticleCard({
   article,
-  onToggleFavorite,
+  onToggleFavoriteArticle: onToggleFavorite,
 }: ArticleCardProps) {
   const handleFavoriteArticle = () => {
     onToggleFavorite(article);

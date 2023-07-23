@@ -3,12 +3,12 @@ import ArticleCard from "../article-card/article-card";
 
 type ArticleListProps = {
   articleList: Article[];
-  onToggleFavorite: (article: Article) => void;
+  onToggleFavoriteArticle: (article: Article) => void;
 };
 
 export default function ArticleList({
   articleList,
-  onToggleFavorite,
+  onToggleFavoriteArticle,
 }: ArticleListProps) {
   if (articleList.length === 0) {
     return (
@@ -18,12 +18,12 @@ export default function ArticleList({
     );
   } else {
     const handleToggleFavoriteArticle = (article: Article) => {
-      onToggleFavorite(article);
+      onToggleFavoriteArticle(article);
     };
     const articleElement = articleList.map((article) => (
       <ArticleCard
         key={article.slug}
-        onToggleFavorite={handleToggleFavoriteArticle}
+        onToggleFavoriteArticle={handleToggleFavoriteArticle}
         article={article}
       />
     ));
