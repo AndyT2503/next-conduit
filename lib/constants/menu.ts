@@ -1,11 +1,11 @@
-interface NavBarMenu {
+interface Menu {
   url: string;
   title: string;
   icon?: string;
   image?: string;
 }
 
-export const NON_AUTH_MENU: NavBarMenu[] = [
+export const NON_AUTH_MENU: Menu[] = [
   {
     url: '/',
     title: 'Home',
@@ -20,7 +20,7 @@ export const NON_AUTH_MENU: NavBarMenu[] = [
   },
 ];
 
-export const AUTH_MENU: NavBarMenu[] = [
+export const AUTH_MENU: Menu[] = [
   {
     url: '/',
     title: 'Home',
